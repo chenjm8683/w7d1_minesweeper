@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname,
-  entry: "./frontend/widgets.jsx",
+  entry: "./frontend/react_minesweeper.jsx",
   output: {
     path: "./frontend/",
     filename: "bundle.js"
