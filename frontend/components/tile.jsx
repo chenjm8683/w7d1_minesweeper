@@ -2,24 +2,42 @@ var React = require('react');
 
 var Tile = React.createClass({
   getInitialState: function() {
+
     return ({
       explored: false,
       flagged: false,
-      display: "T"
+      display: ""
     });
   },
 
   handleClick: function(e) {
-    if (!this.state.explored) {
-      this.setState({ explored: true })
+    var tile = this.props.tile;
+    if (!tile.explored) {
+      if (e.altKey){
+        tile.flagged = !tile.flagged;
+      } else if (!tile.flagged) {
+        tile.explore();
+      }
+
     }
+    var bombCount = tile.adjacentBombCount();
+
   },
 
   render: function() {
+    var tile = this.props.tile;
+    var classes = ["tile"];
+    if (tile.flagged) {
+      classes.push("flagged");
+    } else if (tile.explored) {
+      alert("explored");
+      classes.push("explored");
+    }
 
-    var bombCount = this.props.tile.adjacentBombCount();
     return (
-      <div onClick={this.handleClick}>
+      <div
+        className={classes.join(" ")}
+        onClick={this.handleClick}>
         {this.state.display}
       </div>
     );
